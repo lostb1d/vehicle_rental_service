@@ -1,0 +1,194 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Your Vehicle</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <script src='https://api.mapbox.com/mapbox.js/v3.3.0/mapbox.js'></script>
+    <link href='https://api.mapbox.com/mapbox.js/v3.3.0/mapbox.css' rel='stylesheet' />
+    <style>
+        #map {width:400px; height:300px; }
+    </style>
+</head>
+<body>
+    <nav class="container-fluid">
+        <div class="navbar-item text-center"><h1>Post Your Vehicle</h1></div>
+    </nav>
+    <form method="POST" action="post.php" enctype="multipart/form-data">
+        <div class="container-fluid">
+        <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="vehicle_number">Vehicle Number</label>
+             <input type="text" class="form-control" name="vehicle_number">
+             </div></div>
+         </div>
+        <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="brand">Manufracturer</label>
+             <input type="text" class="form-control" name="brand" placeholder="Tata">
+             </div></div>
+         </div>
+        <div class="form-group">
+           <div class="row"> <div class="col-lg-4">
+            <label for="segment">Segment</label>
+            <select class="form-control" name="segment">
+                <option value="hatchback">Hatchback</option>  
+                <option value="cuv">Compact Utility Vehicle</option>
+                <option value="sedan">Sedan</option> 
+                <option value="compact_sedan">Compact Sedan</option> 
+                <option value="suv">SUV</option> 
+                <option value="mini_suv">Mini SUV</option> 
+                <option value="pickup">Pick Up</option> 
+                <option value="mini_buses">Mini Buses</option> 
+            </select>
+            </div></div>
+        </div>
+        
+         <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="model">Model</label>
+             <input type="text" class="form-control" name="model" placeholder="Tiago">
+             </div></div>
+         </div>
+         <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="variant">Variant</label>
+             <input type="text" class="form-control" name="variant" placeholder="XZ+">
+             </div></div>
+         </div>
+         <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="drive_train">Drive Train</label>
+             <select class="form-control" name="drive_train" >
+                 <option value="fwd">Front Wheel Drive</option>
+                 <option value="rwd">Rear Wheel Drive</option>
+                <option value="4wd">Four Wheel Drive</option>
+                 </select>
+             </div></div>
+         </div>
+         <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="fuel">Fuel</label>
+             <select  class="form-control" name="fuel" >
+                 <option value="petrol">Petrol</option>
+                 <option value="diesel">Diesel</option>
+                 <option value="electricity">Electricity</option>
+                 </select>
+             </div></div>
+         </div>
+         <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="no_of_seating">No of Seating</label>
+             <input type="number" class="form-control" name="no_of_seating" placeholder="5">
+             </div></div>
+         </div>
+         <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="color">Color</label>
+             <input type="text" class="form-control" name="color" placeholder="Jet Silver">
+             </div></div>
+         </div>
+         <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="make_year">Make Year</label>
+             <input type="text" class="form-control" name="make_year" placeholder="2017">
+             </div></div>
+         </div>
+         <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="details">Details</label>
+             <textarea rows=7 class="form-control" name="details" ></textarea>
+             </div></div>
+         </div>
+         <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="photos">Photos</label>
+             <input type="file" class="form-control" name="photos">
+             </div></div>
+         </div>
+
+        <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="photos">Owner Name</label>
+             <input type="text" class="form-control" name="owner_name">
+             </div></div>
+         </div>
+        <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="photos">Owner Contact</label>
+             <input type="text" class="form-control" name="owner_contact">
+             </div></div>
+         </div>
+        <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="rate">Rate per day</label>
+             <input type="text" class="form-control" name="rate">
+             </div></div>
+         </div>
+         <div id='map'></div>
+        <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="latitude">Latitude</label>
+             <input type="text" id="lat" class="form-control" name="latitude">
+             </div></div>
+         </div>
+         <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+             <label for="longitude">Longitude</label>
+             <input type="text" id="lng" class="form-control" name="longitude">
+             </div></div>
+         </div>
+
+    
+        
+        <pre id='coordinates' class='ui-coordinates'></pre>
+        <script>
+        L.mapbox.accessToken = 'pk.eyJ1IjoibG9zdGIxIiwiYSI6ImNqaTBjcGd4bjE2cGMza3M2MWEzcTRwd3gifQ.Ps6yKHol2bmEPndMSeYKKw';
+        var map = L.mapbox.map('map')
+            .setView([28.0396627, 84.030761], 6)
+            .addLayer(L.mapbox.styleLayer('mapbox://styles/mapbox/streets-v11'));
+
+        var coordinates = document.getElementById('coordinates');
+
+        var marker = L.marker([28.0396627, 84.030761], {
+            icon: L.mapbox.marker.icon({
+            'marker-color': '#f86767'
+            }),
+            draggable: true
+        }).addTo(map);
+
+        // every time the marker is dragged, update the coordinates container
+        marker.on('dragend', ondragend);
+
+        // Set the initial marker coordinate on load.
+        ondragend();
+
+        function ondragend() {
+            var m = marker.getLatLng();
+            // coordinates.innerHTML = 'Latitude: ' + m.lat + '<br />Longitude: ' + m.lng;
+            document.getElementById("lat").value = m.lat;
+            document.getElementById("lng").value = m.lng;
+        }
+        </script>
+
+        <div class="form-group">
+            <div class="row"> <div class="col-lg-4">
+            <button class="btn btn-success">Submit</button>
+            </div></div>
+        </div>
+        </div>
+    </form>
+</body>
+</html>
